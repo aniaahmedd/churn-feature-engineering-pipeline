@@ -1,0 +1,9 @@
+{
+  "model": "logreg",
+  "strategy": "none",
+  "pr_auc_mean": 0.4396355420397629,
+  "tied_candidates": [
+    "logreg/none"
+  ],
+  "rule": "highest F1@0.5 among combinations within 0.005 PR-AUC of the best"
+}

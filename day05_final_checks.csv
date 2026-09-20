@@ -1,0 +1,11 @@
+check,passed,detail
+fit_learns_only_from_training_data,True,transform(X_test) left every learned statistic unchanged
+sensitivity_check_leaky_fit_differs,True,"fitting on train+test WOULD change the learned statistics, so the check above is meaningful"
+features_do_not_use_target,True,shuffling y does not change any learned value
+scaler_fitted_on_training_data,True,StandardScaler mean_ equals the training-set mean of each numeric feature
+handles_unseen_categories_and_missing_values,True,predict_proba returned finite values
+aggregates_ignore_events_after_snapshot,True,adding events dated after the snapshot leaves aggregates unchanged
+cv_uses_fresh_clone_per_fold,True,template pipeline is still unfitted after cross-validation
+deterministic_refit,True,two independent fits give identical predictions
+persistence_roundtrip,True,joblib dump/load reproduces predictions
+feature_catalog_complete,True,46 engineered columns documented with correct types

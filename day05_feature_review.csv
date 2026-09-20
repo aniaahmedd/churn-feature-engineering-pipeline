@@ -1,0 +1,47 @@
+feature,group,type,definition,perm_importance_mean,perm_importance_std,share_folds_positive,verdict,mutual_info,redundant_corr_gt_0.95
+recency_days,aggregate,numeric,Days since the most recent event (90 if no event in the window).,0.08247984865869114,0.032199641215954616,1.0,useful,0.0537503714181533,False
+charge_x_recency,interaction,numeric,monthly_charge * recency_days.,0.03979783567421362,0.020012116545330368,1.0,useful,0.0402980824245828,False
+usage_state,categorical,categorical,"Rule-based: 'declining' if usage_trend_ratio < 0.6, 'growing' if > 1.4, else 'stable'.",0.03125086088773228,0.007956202249253124,1.0,useful,0.0346155814393766,False
+log_charge_per_event,ratio,numeric,log(charge_per_event + 0.01).,0.02631136516947946,0.018096142932399858,1.0,useful,0.0039033508323689,False
+events_90d,aggregate,numeric,Number of events (login/stream/purchase) in the 90 days before the snapshot.,0.02627764987355736,0.01738330786486879,1.0,useful,0.0153716364125886,False
+active_days_30d,aggregate,numeric,Distinct calendar days with at least one event in the last 30 days.,0.019476380380758072,0.00873441067140179,0.9,useful,0.0518546793742218,False
+acquisition_channel,base,categorical,Marketing channel through which the customer signed up.,0.019428192551831574,0.016325281317172292,0.9,useful,0.0023731945181063,False
+plan,base,categorical,Subscription plan: basic / standard / premium.,0.017722772242179337,0.00905063948632039,1.0,useful,0.0034313992138026,False
+usage_trend_ratio,aggregate,numeric,(events_30d/30) / (events_prior_60d/60 + 0.05): <1 means usage is declining.,0.017423015220420352,0.015127744544293276,1.0,useful,0.0492708317869634,False
+premium_high_tickets,interaction,numeric,1 if plan == premium AND n_support_tickets >= 3 (unhappy high-value customers).,0.009096243570555478,0.007712845691906327,0.9,useful,0.0,False
+tickets_x_recency,interaction,numeric,n_support_tickets * recency_days.,0.007897869145996094,0.003925780345319361,1.0,useful,0.038843487738519,False
+purchase_amount_mean,aggregate,numeric,Mean purchase amount in 90 days (0 if none).,0.006609530215416481,0.005241376917674571,0.8,useful,0.0085367855644917,False
+country,base,categorical,Country; countries below 2% of the training rows are grouped into 'other' (learned in fit).,0.0052092170954361385,0.005247805796432687,0.9,useful,0.0015632824948398,False
+purchase_amount_sum,aggregate,numeric,Total purchase amount in 90 days.,0.004783854838987759,0.008001002975347726,0.6,unstable,0.0071662401370622,False
+monthly_charge,base,numeric,Monthly subscription price.,0.004534147720042863,0.005961975152636333,0.8,useful,0.0053830933458611,False
+charge_per_event,ratio,numeric,monthly_charge / (events_90d + 1): price paid per unit of usage.,0.004372309225562971,0.005759017668472594,0.6,unstable,0.0035696306597652,False
+n_support_tickets,base,numeric,Number of support tickets ever opened.,0.004229307846134936,0.006689729241297366,0.8,useful,0.0061591023590694,False
+purchase_amount_max,aggregate,numeric,Largest single purchase in 90 days (0 if none).,0.0021897545602299227,0.005986647287803363,0.6,unstable,0.0103458848824917,False
+basic_new_customer,interaction,numeric,1 if plan == basic AND tenure_days < 90.,0.0012271370600307786,0.0012483343161323675,0.9,unstable,0.0,False
+purchase_count_90d,aggregate,numeric,Number of purchase events in 90 days.,0.0012179557517113149,0.0030846370517795445,0.6,unstable,0.0103128311047384,False
+tenure_days,datetime,numeric,Days between signup_date and the snapshot date.,0.0011999992450398979,0.0036159318154802104,0.6,unstable,0.0030455570013914,False
+age_missing,ratio,numeric,1 if age was missing (missingness indicator).,0.0008200430797958002,0.002129692618831451,0.6,unstable,0.0,False
+tickets_per_month,ratio,numeric,n_support_tickets / (tenure_days/30 + 1): ticket rate normalised by lifetime.,0.0006694018665049084,0.0028982797896210774,0.6,unstable,0.0052071119437695,False
+signup_is_weekend,datetime,numeric,1 if the customer signed up on a Saturday or Sunday.,0.0006186662462680048,0.0025794838312850456,0.7,unstable,0.0031300348676086,False
+events_30d,aggregate,numeric,Events in the last 30 days.,0.0005550200874465738,0.0019450995592858885,0.6,unstable,0.0533825335762501,False
+login_share,aggregate,numeric,Share of events that are logins (missing if no events).,0.0005395108692033978,0.001394159096766018,0.7,unstable,0.0028505702627277,False
+is_new_customer,datetime,numeric,1 if tenure_days < 90 else 0 (onboarding-period churn is different).,0.0001454433319431625,0.005246949505906873,0.6,drop,0.0,False
+signup_month_sin,datetime,numeric,sin(2*pi*signup_month/12) - cyclical encoding of signup month.,7.3288744065334e-05,0.0050623874314308405,0.5,drop,0.0,False
+events_7d,aggregate,numeric,Events in the last 7 days.,2.5374282860980398e-05,0.0013347006551788364,0.4,drop,0.0377579938953949,False
+weekend_share,aggregate,numeric,Share of events on Saturday/Sunday (missing if no events).,2.436484597876029e-05,0.0061434192658081956,0.6,drop,0.0091803700225263,False
+events_per_tenure_day,ratio,numeric,"events_90d / min(tenure_days, 90): usage intensity, fair to new customers.",0.0,0.0,0.0,drop,0.0138008476224813,True
+log_monthly_charge,ratio,numeric,log(monthly_charge).,0.0,0.0,0.0,drop,0.0065964119359194,True
+events_prior_60d,aggregate,numeric,Events between 90 and 30 days before the snapshot.,0.0,0.0,0.0,drop,0.0149048782849081,True
+legacy_score,base,numeric,Score from a legacy system (kept in the baseline on purpose; expected to be noise).,-0.00014826819136188547,0.0037493615931607706,0.7,drop,0.0046956324470932,False
+price_pressure,categorical,categorical,"'high' if charge_per_event is above the training 75th percentile, else 'normal'.",-0.00019740647175881982,0.0015484702313956818,0.5,drop,0.0029325490435144,False
+age,base,numeric,Customer age in years (missing values median-imputed inside the pipeline).,-0.0003020656227768571,0.0029922334578372633,0.3,drop,0.0,False
+longest_gap_days,aggregate,numeric,"Longest inactivity gap (days) inside the 90-day window, including the gap up to the snapshot.",-0.00032074704296433106,0.0026755673986005183,0.5,drop,0.0278123881699998,False
+promo_freq,categorical,numeric,Frequency encoding of promo_code: share of training rows with that code (0 for unseen codes). No target encoding -> no leakage.,-0.000406067387540251,0.0029398602351249025,0.6,drop,0.0033950319914144,False
+signup_month_cos,datetime,numeric,cos(2*pi*signup_month/12) - cyclical encoding of signup month.,-0.00044584854727917406,0.0019991467206378157,0.6,drop,0.0,False
+night_share,aggregate,numeric,Share of events between 00:00 and 05:59 (missing if no events).,-0.0005715419158838541,0.0010295250539769651,0.3,drop,0.0106814561110233,False
+gender,base,categorical,Customer gender (one-hot encoded).,-0.0007268672626127803,0.002100675038102421,0.4,drop,7.711630965730881e-05,False
+event_type_diversity,aggregate,numeric,Number of distinct event types used in 90 days.,-0.0009327893344493498,0.004193598396101499,0.6,drop,0.0038086409675024,False
+paid_search_low_usage,interaction,numeric,1 if channel == paid_search AND usage_trend_ratio < 0.6.,-0.0010197154923216145,0.003770703219142237,0.4,drop,0.0077892797278211,False
+age_band,categorical,categorical,"Age quintile band (q1..q5, 'unknown' if missing); quintile edges learned on training data.",-0.0011378232376674348,0.004175156085805719,0.4,drop,0.0004748782402158,False
+device,base,categorical,Main device; missing values become their own 'missing' level.,-0.0015209140622929273,0.0025223907721326102,0.3,drop,0.0003256419007576,False
+tenure_log,datetime,numeric,log(1 + tenure_days) - tames the right skew of tenure.,-0.001575272594461671,0.005925096713562392,0.4,drop,0.0035230512199388,False

@@ -1,0 +1,78 @@
+{
+  "model": "logreg",
+  "imbalance_strategy": "none",
+  "feature_groups": [
+    "datetime",
+    "aggregate",
+    "ratio",
+    "interaction",
+    "categorical"
+  ],
+  "dropped_features": [
+    "purchase_amount_sum",
+    "charge_per_event",
+    "purchase_amount_max",
+    "basic_new_customer",
+    "purchase_count_90d",
+    "tenure_days",
+    "age_missing",
+    "tickets_per_month",
+    "signup_is_weekend",
+    "events_30d",
+    "login_share",
+    "is_new_customer",
+    "signup_month_sin",
+    "events_7d",
+    "weekend_share",
+    "events_per_tenure_day",
+    "log_monthly_charge",
+    "events_prior_60d",
+    "legacy_score",
+    "price_pressure",
+    "age",
+    "longest_gap_days",
+    "promo_freq",
+    "signup_month_cos",
+    "night_share",
+    "gender",
+    "event_type_diversity",
+    "paid_search_low_usage",
+    "age_band",
+    "device",
+    "tenure_log"
+  ],
+  "n_engineered_features": 15,
+  "operating_threshold": 0.23844444444444443,
+  "snapshot_date": "2024-06-30",
+  "random_state": 42,
+  "n_train": 4800,
+  "n_test": 1200,
+  "versions": {
+    "python": "3.12.3",
+    "scikit-learn": "1.8.0",
+    "pandas": "3.0.2",
+    "numpy": "2.4.4",
+    "imbalanced-learn": "0.14.2"
+  },
+  "learned_from_train": {
+    "country_keep": [
+      "AE",
+      "CA",
+      "DE",
+      "IN",
+      "PK",
+      "SE",
+      "UK",
+      "US"
+    ],
+    "age_quintile_edges": [
+      28.0,
+      35.0,
+      40.0,
+      47.0
+    ],
+    "price_pressure_threshold": 0.9669642857142856,
+    "n_promo_codes_seen": 126,
+    "correlation_filter_dropped": []
+  }
+}
